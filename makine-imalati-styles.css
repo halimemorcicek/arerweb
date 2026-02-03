@@ -1,0 +1,590 @@
+/* ================= MAKİNE İMALATI SAYFASI CSS ================= */
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= BODY ================= */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1a1a1a;
+  min-height: 100vh;
+  background: #ffffff;
+  padding-top: 38px;
+}
+
+/* ================= ÜST KAYAN PANEL ================= */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 38px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+.top-bar-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.top-bar-track span {
+  white-space: nowrap;
+  padding-right: 60px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+  line-height: 38px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  width: min(1400px, 95%);
+  margin: 0 auto;
+}
+
+/* ================= HEADER ================= */
+.site-header {
+  background: #3a3a3a;
+  border-bottom: 3px solid #c53030;
+  position: sticky;
+  top: 38px;
+  z-index: 1000;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 12px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 55px;
+  background: #3a3a3a; /* Header ile aynı renk */
+  object-fit: contain;
+  display: block;
+  padding: 5px 15px;
+  border-radius: 4px;
+}
+
+/* Logo hover efekti */
+.brand a:hover .brand-logo {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.brand-text {
+  font-weight: 700;
+  font-size: 48px;
+  color: #c53030;
+  letter-spacing: 8px;
+}
+
+/* ================= NAV ================= */
+.nav {
+  display: flex;
+  gap: 0;
+  flex: 1;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 20px 18px;
+  position: relative;
+  transition: background 0.3s ease;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.nav a:first-child {
+  border-left: none;
+}
+
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav a.active {
+  background: rgba(197, 48, 48, 0.2);
+  border-bottom: 3px solid #c53030;
+}
+
+.lang-flag {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+/* ================= HAMBURGER MENU ================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ================= MAKİNE İMALATI HERO ================= */
+.makine-hero {
+  position: relative;
+  height: 500px;
+  background: url("makine-imalati-hero.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.makine-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
+  padding: 30px 0 28px;
+}
+
+.makine-hero h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.makine-hero p {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+}
+
+/* ================= MAKİNE UYGULAMALARI ================= */
+.makine-applications {
+  padding: 80px 0;
+  background: #f5f5f5;
+}
+
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.application-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.application-card:hover {
+  transform: translateY(-8px);
+  border-color: #c53030;
+  box-shadow: 0 8px 24px rgba(197, 48, 48, 0.2);
+}
+
+.application-icon {
+  margin-bottom: 24px;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #c53030 0%, #8b1a1a 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 36px;
+  box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
+}
+
+.application-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.application-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2d3748;
+  font-weight: 400;
+}
+
+/* ================= FOOTER ================= */
+.site-footer {
+  background: #2d2d2d;
+  color: #ffffff;
+  padding: 50px 0 25px;
+  border-top: 4px solid #c53030;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  margin-bottom: 30px;
+}
+
+.footer-section h3 {
+  color: #c53030;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.contact-item {
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.contact-item strong {
+  color: #ffffff;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.contact-item a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+  color: #c53030;
+}
+
+.address-item {
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.address-item strong {
+  color: #c53030;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.contact-icons {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.icon-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.icon-link svg {
+  flex-shrink: 0;
+}
+
+.icon-link.whatsapp {
+  background: #25D366;
+  color: #ffffff;
+  border-color: #25D366;
+}
+
+.icon-link.whatsapp:hover {
+  background: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.icon-link.email {
+  background: #c53030;
+  color: #ffffff;
+  border-color: #c53030;
+}
+
+.icon-link.email:hover {
+  background: #8b1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1400px) {
+  .container {
+    width: 96%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nav a {
+    padding: 20px 16px;
+    font-size: 13px;
+  }
+  
+  .brand-text {
+    font-size: 40px;
+    letter-spacing: 6px;
+  }
+  
+  .applications-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .makine-hero h1 {
+    font-size: 44px;
+  }
+  
+  .makine-hero p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .brand-text {
+    font-size: 32px;
+    letter-spacing: 4px;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: #3a3a3a;
+    border-bottom: 3px solid #c53030;
+    z-index: 999;
+  }
+  
+  .nav.is-open {
+    display: flex;
+  }
+
+  .nav a {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px 18px;
+  }
+
+  .nav a:first-child {
+    border-top: none;
+  }
+
+  .hamburger {
+    display: flex;
+    order: -1;
+  }
+
+  .header-inner {
+    position: relative;
+  }
+  
+  .lang-flag {
+    font-size: 24px;
+  }
+  
+  .makine-hero {
+    height: 400px;
+  }
+  
+  .makine-hero h1 {
+    font-size: 36px;
+  }
+  
+  .makine-hero p {
+    font-size: 16px;
+  }
+  
+  .makine-applications {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+  
+  .contact-icons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .icon-link {
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 34px;
+  }
+  
+  .top-bar {
+    height: 34px;
+  }
+  
+  .top-bar-track span {
+    font-size: 12px;
+    line-height: 34px;
+  }
+  
+  .site-header {
+    top: 34px;
+  }
+  
+  .header-inner {
+    padding: 10px 0;
+    gap: 20px;
+  }
+  
+  .brand-text {
+    font-size: 28px;
+    letter-spacing: 3px;
+  }
+  
+  .lang-flag {
+    font-size: 20px;
+  }
+  
+  .applications-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .makine-hero {
+    height: 350px;
+  }
+  
+  .makine-hero-overlay {
+    padding: 60px 0;
+  }
+  
+  .makine-hero h1 {
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+  
+  .makine-hero p {
+    font-size: 14px;
+  }
+  
+  .application-card {
+    padding: 30px 24px;
+  }
+  
+  .application-card h2 {
+    font-size: 19px;
+  }
+  
+  .application-card p {
+    font-size: 14px;
+  }
+  
+  .icon-circle {
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand-text {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  .makine-hero {
+    height: 300px;
+  }
+  
+  .makine-hero h1 {
+    font-size: 24px;
+  }
+  
+  .makine-hero p {
+    font-size: 13px;
+  }
+}

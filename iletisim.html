@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - ARER</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #1a1a1a;
+            background: #ffffff;
+            padding-top: 38px;
+        }
+
+        /* ================= ÜST KAYAN PANEL ================= */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            overflow: hidden;
+            z-index: 2000;
+        }
+
+        .top-bar-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .top-bar-track span {
+            white-space: nowrap;
+            padding-right: 60px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            line-height: 38px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ================= HEADER ================= */
+        .site-header {
+            background: #3a3a3a;
+            border-bottom: 3px solid #c53030;
+            position: sticky;
+            top: 38px;
+            z-index: 1000;
+        }
+
+        .container {
+            width: min(1400px, 95%);
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 12px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo {
+            height: 55px;
+            background: #3a3a3a; /* Header ile aynı renk */
+            object-fit: contain;
+            display: block;
+            padding: 5px 15px;
+            border-radius: 4px;
+        }
+
+        /* Logo hover efekti */
+        .brand a:hover .brand-logo {
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand-text {
+            font-weight: 700;
+            font-size: 48px;
+            color: #c53030;
+            letter-spacing: 8px;
+        }
+
+        /* ================= NAV ================= */
+        .nav {
+            display: flex;
+            gap: 0;
+            flex: 1;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #ffffff;
+            padding: 20px 18px;
+            position: relative;
+            transition: background 0.3s ease;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .nav a:first-child {
+            border-left: none;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav a.active {
+            background: rgba(197, 48, 48, 0.2);
+            border-bottom: 3px solid #c53030;
+        }
+
+        .lang-flag {
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        /* ================= HAMBURGER MENU ================= */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ================= CONTACT SECTION ================= */
+        .contact-section {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+
+        /* Background Slider */
+        .bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Dark Overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 2;
+        }
+
+        /* Content Container */
+        .contact-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 80px 60px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .contact-box {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 28px 36px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            max-width: 560px;
+            width: 100%;
+            backdrop-filter: blur(8px);
+        }
+
+        .contact-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 22px;
+            text-align: left;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .contact-column h3 {
+            font-size: 16px;
+            color: #c41e3a;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .contact-item {
+            margin-bottom: 12px;
+        }
+
+        .contact-item a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 15px;
+            display: block;
+            padding: 4px 0;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .contact-item a:hover {
+            color: #c41e3a;
+            transform: translateX(3px);
+        }
+
+        .contact-item p {
+            color: #1a1a1a;
+            font-size: 15px;
+            padding: 4px 0;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Slider Navigation Dots */
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 4;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #fff;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        /* ================= FOOTER ================= */
+        .site-footer {
+            background: #2d2d2d;
+            color: #ffffff;
+            padding: 50px 0 25px;
+            border-top: 4px solid #c53030;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-section .contact-item {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-section .contact-item strong {
+            color: #ffffff;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .footer-section .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 15px;
+        }
+
+        .footer-section .contact-item a:hover {
+            color: #c53030;
+        }
+
+        .address-item {
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .address-item strong {
+            color: #c53030;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .contact-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .icon-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .icon-link svg {
+            flex-shrink: 0;
+        }
+
+        .icon-link.whatsapp {
+            background: #25D366;
+            color: #ffffff;
+            border-color: #25D366;
+        }
+
+        .icon-link.whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .icon-link.email {
+            background: #c53030;
+            color: #ffffff;
+            border-color: #c53030;
+        }
+
+        .icon-link.email:hover {
+            background: #8b1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+
+        /* ================= HARITA ================= */
+        .footer-map {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-map h3 {
+            color: #c53030;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .map-container iframe {
+            display: block;
+        }
+
+        .map-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: #3a3a3a;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .map-btn:hover {
+            background: #c53030;
+            border-color: #c53030;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(197, 48, 48, 0.3);
+        }
+
+        .map-btn.directions {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .map-btn.directions:hover {
+            background: #ffffff;
+            color: #2d2d2d;
+            border-color: #ffffff;
+            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ================= CONTACT FORM SECTION ================= */
+        .contact-form-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-container h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d2d2d;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #c53030;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.1);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .form-group input[type="date"] {
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: #3d4457;
+            color: #ffffff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+            align-self: center;
+            min-width: 200px;
+        }
+
+        .submit-btn:hover {
+            background: #2d3447;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(61, 68, 87, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1400px) {
+            .container {
+                width: 96%;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .nav a {
+                padding: 20px 16px;
+                font-size: 13px;
+            }
+            
+            .brand-text {
+                font-size: 40px;
+                letter-spacing: 6px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .brand-text {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                background: #3a3a3a;
+                border-bottom: 3px solid #c53030;
+                z-index: 999;
+            }
+            
+            .nav.is-open {
+                display: flex;
+            }
+
+            .nav a {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                padding: 14px 18px;
+            }
+
+            .nav a:first-child {
+                border-top: none;
+            }
+
+            .hamburger {
+                display: flex;
+                order: -1;
+            }
+
+            .header-inner {
+                position: relative;
+            }
+            
+            .lang-flag {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                min-height: auto;
+                overflow: visible;
+            }
+
+            .contact-content {
+                min-height: auto;
+                height: auto;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .site-footer {
+                padding: 40px 0 20px;
+            }
+
+            .contact-icons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .icon-link {
+                justify-content: center;
+            }
+
+            .contact-box {
+                padding: 30px 35px;
+                max-width: 600px;
+            }
+
+            .contact-title {
+                font-size: 26px;
+                margin-bottom: 24px;
+            }
+
+            .contact-grid {
+                gap: 30px;
+            }
+
+            .contact-column h3 {
+                font-size: 14px;
+            }
+
+            .contact-item a,
+            .contact-item p {
+                font-size: 13px;
+            }
+
+            .map-buttons {
+                justify-content: center;
+            }
+
+            /* Form responsive */
+            .form-container {
+                padding: 35px 25px;
+            }
+
+            .form-container h2 {
+                font-size: 26px;
+                margin-bottom: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding-top: 34px;
+            }
+            
+            .top-bar {
+                height: 34px;
+            }
+            
+            .top-bar-track span {
+                font-size: 12px;
+                line-height: 34px;
+            }
+            
+            .site-header {
+                top: 34px;
+            }
+            
+            .header-inner {
+                padding: 10px 0;
+                gap: 20px;
+            }
+            
+            .brand-text {
+                font-size: 28px;
+                letter-spacing: 3px;
+            }
+            
+            .lang-flag {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-box {
+                padding: 24px 20px;
+                max-width: 100%;
+            }
+
+            .contact-title {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .contact-column h3 {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .contact-item a,
+            .contact-item p {
+                font-size: 12px;
+            }
+
+            .contact-content {
+                padding: 40px 20px;
+            }
+
+            .map-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .brand-text {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ÜST KAYAN PANEL -->
+    <div class="top-bar">
+      <div class="top-bar-track">
+        <span>
+          Dijital Fabrikalar • Robot Kol • Makine İmalatı • SCADA &amp; Kontrol Sistemleri •
+          Geleceği Otomatize Eden • Akıllı Üretimin Mimarı • Dijital Fabrikalar • Robot Kol •
+        </span>
+        <span>
+          Dijital Fabrikalar • Robot Kol • Makine İmalatı • SCADA &amp; Kontrol Sistemleri •
+          Geleceği Otomatize Eden • Akıllı Üretimin Mimarı • Dijital Fabrikalar • Robot Kol •
+        </span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <a href="index.html">
+            <img src="images/arer_logo_transparent.png" alt="ARER Logo" class="brand-logo" />
+          </a>
+        </div>
+
+        <nav class="nav">
+          <a href="haberler.html">HABERLER</a>
+          <a href="robot-kol.html">ROBOT KOL</a>
+          <a href="makine-imalati.html">MAKİNE İMALATI</a>
+          <a href="dijital-fabrikalar.html">DİJİTAL FABRİKALAR</a>
+          <a href="kontrol-scada (1).html">KONTROL &amp; SCADA</a>
+          <a href="endustriyel-egitim.html">ENDÜSTRİYEL EĞİTİM</a>
+          <a href="iletisim.html" class="active">İLETİŞİM</a>
+        </nav>
+
+        <button class="hamburger" aria-label="Menü">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <!-- Background Slider -->
+        <div class="bg-slider">
+            <div class="slide active">
+                <img src="images/iletisim.png" alt="ARER Ofis İçi">
+            </div>
+            <div class="slide">
+                <img src="images/ofisler.png" alt="ARER Çalışma Alanı">
+            </div>
+            <div class="slide">
+                <img src="images/bina.png" alt="ARER Plaza">
+            </div>
+        </div>
+
+        <!-- Dark Overlay -->
+        <div class="overlay"></div>
+
+        <!-- Contact Content -->
+        <div class="contact-content">
+            <div class="contact-box">
+                <h1 class="contact-title">ARER KONTROL</h1>
+                
+                <div class="contact-grid">
+                    <!-- Websites -->
+                    <div class="contact-column">
+                        <h3>Web Siteleri</h3>
+                        <div class="contact-item">
+                            <a href="https://www.arerotomasyon.com" target="_blank">www.arerotomasyon.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://www.arerrobotic.com" target="_blank">www.arerrobotic.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://www.arerrobotik.com" target="_blank">www.arerrobotik.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://www.arerkontrol.com" target="_blank">www.arerkontrol.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://www.arercontrol.com" target="_blank">www.arercontrol.com</a>
+                        </div>
+                    </div>
+
+                     <!-- Departments -->
+                    <div class="contact-column">
+                        <h3>Finans departmanı</h3>
+                        <div class="contact-item">
+                            <a href="mailto:satis@arerotomasyon.com">satis@arerotomasyon.com</a>
+                        </div>
+                        
+                        <h3 style="margin-top: 10px;">Müşteri Yardım Masası</h3>
+                        <div class="contact-item">
+                            <a href="mailto:kym@arerotomasyon.com">kym@arerotomasyon.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Navigation Dots -->
+        <div class="slider-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2>Bizimle Çalışın</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Ad</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="surname">Soyad</label>
+                            <input type="text" id="surname" name="surname" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">E-posta *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="position">Pozisyon</label>
+                            <select id="position" name="position">
+                                <option value="">Seçiniz</option>
+                                <option value="bilgisayar-muhendisi">Bilgisayar Mühendisi</option>
+                                <option value="yazilim-muhendisi">Yazılım Mühendisi</option>
+                                <option value="elektrik-elektronik-muhendisi">Elektrik Elektronik Mühendisi</option>
+                                <option value="makine-muhendisi">Makine Mühendisi</option>
+                                <option value="mekatronik-muhendisi">Mekatronik Mühendisi</option>
+                                <option value="tekniker">Tekniker</option>
+                                <option value="on-muhasebe-asistan">Ön Muhasebe ve Asistan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Başlama Tarihi</label>
+                            <input type="date" id="startDate" name="startDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="cv">CV/LinkedIn Bağlantısı</label>
+                        <input type="text" id="cv" name="cv" placeholder="LinkedIn profiliniz veya CV linkiniz">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Başvur</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+       <!-- FOOTER / İLETİŞİM BÖLÜMÜ -->
+      <footer class="site-footer" id="iletisim">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3>İLETİŞİM BİLGİLERİ</h3>
+              <div class="contact-item">
+                <strong>Tel:</strong> (90) 344 215 32 46
+              </div>
+              <div class="contact-item">
+                <strong>Tel:</strong> (90) 531 264 21 01
+              </div>
+              <div class="contact-item">
+                <strong>E-mail:</strong> <a href="mailto:kym@arerotomasyon.com">kym@arerotomasyon.com</a>
+              </div>
+              
+              <div class="contact-icons">
+                <a href="https://wa.me/905312642101" target="_blank" class="icon-link whatsapp" title="WhatsApp ile iletişime geç">
+                  <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  <span>WhatsApp</span>
+                </a>
+                
+                <a href="mailto:kym@arerotomasyon.com" class="icon-link email" title="E-mail gönder">
+                  <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                  <span>E-mail</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="footer-section">
+              <h3>ADRESLER</h3>
+              <div class="address-item">
+                <strong>Merkez:</strong><br>
+                Yavuz Selim Mah. Yeni Sanayi Sitesi 49. cad.<br>
+                ARER PLAZA Dulkadiroğlu / Kahramanmaraş
+              </div>
+              <div class="address-item">
+                <strong>AR-GE:</strong><br>
+                Avşar, KSÜ Avşar Kampüs no:49<br>
+                Onikişubat / Kahramanmaraş
+              </div>
+            </div>
+          </div>
+
+                 <!-- HARİTA BÖLÜMÜ -->
+          <div class="footer-map">
+            <h3>KONUM</h3>
+            <div class="map-container">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3190.5!2d36.9371!3d37.5847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDM1JzA1LjAiTiAzNsKwNTYnMTMuNiJF!5e0!3m2!1str!2str!4v1700000000000"
+                width="100%" 
+                height="300" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="ARER Otomasyon Konum">
+              </iframe>
+            </div>
+            <div class="map-buttons">
+              <a href="https://www.google.com/maps/search/Yavuz+Selim+Mah+Yeni+Sanayi+Sitesi+49+cad+Kahramanmaras" target="_blank" class="map-btn">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Google Maps'te Aç
+              </a>
+              <a href="https://www.google.com/maps/dir//Yavuz+Selim+Mah+Yeni+Sanayi+Sitesi+49+cad+Kahramanmaras" target="_blank" class="map-btn directions">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+                </svg>
+                Yol Tarifi Al
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <p>&copy; 2026 ARER Otomasyon. Tüm hakları saklıdır.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Resim Modal/Lightbox -->
+    <div id="imageModal" class="modal">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <img id="modalImage" class="modal-content" src="" alt="" />
+    </div>
+
+   <script>
+      // Slider
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      let currentSlide = 0;
+      let sliderTimer = null;
+
+      function showSlide(index) {
+        if (!slides.length) return;
+        const nextIndex = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === nextIndex);
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === nextIndex);
+        });
+        currentSlide = nextIndex;
+      }
+
+      function startSlider() {
+        if (slides.length <= 1) return;
+        stopSlider();
+        sliderTimer = setInterval(() => {
+          showSlide(currentSlide + 1);
+        }, 2000);
+      }
+
+      function stopSlider() {
+        if (sliderTimer) {
+          clearInterval(sliderTimer);
+          sliderTimer = null;
+        }
+      }
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const index = Number(dot.dataset.slide);
+          if (!Number.isNaN(index)) {
+            showSlide(index);
+            startSlider();
+          }
+        });
+      });
+
+      showSlide(0);
+      startSlider();
+
+      // Hamburger Menü
+      const hamburger = document.querySelector('.hamburger');
+      const nav = document.querySelector('.nav');
+
+      if (hamburger && nav) {
+        hamburger.addEventListener('click', function () {
+          const isOpen = nav.classList.toggle('is-open');
+          hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        nav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', function () {
+            nav.classList.remove('is-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Modal/Lightbox Fonksiyonları
+      function openModal(element) {
+        const img = element.querySelector('img');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+
+      // Modal dışına tıklayınca kapat
+      document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+
+      // ESC tuşu ile kapat
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
+</html>
